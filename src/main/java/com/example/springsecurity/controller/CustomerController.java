@@ -13,8 +13,8 @@ import java.util.List;
 @RestController
 public class CustomerController {
     final private List<Customer> customers = List.of(
-            Customer.builder().id("001").name("Customer 1").email("c1@gmail.com").build(),
-            Customer.builder().id("002").name("Customer 2").email("c2@gmail.com").build()
+            Customer.builder().id("1").name("Customer 1").email("c1@gmail.com").build(),
+            Customer.builder().id("2").name("Customer 2").email("c2@gmail.com").build()
     );
 
     @GetMapping("/hello")
