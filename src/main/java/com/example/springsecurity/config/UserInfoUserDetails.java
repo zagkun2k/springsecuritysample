@@ -1,6 +1,6 @@
 package com.example.springsecurity.config;
 
-import com.example.springsecurity.entity.UserInfo;
+import com.example.springsecurity.model.entity.UserInfoEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,24 +13,27 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by HachNV on 29/05/2023
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserInfoUserDetails implements UserDetails {
-    private String name;
+
+    private String username;
     private String password;
     private List<GrantedAuthority> authorities;
+    private boolean active;
+    private boolean locked;
 
-    public UserInfoUserDetails(UserInfo userInfo) {
-        name = userInfo.getName();
-        password = userInfo.getPassword();
-        System.out.println();
-        authorities = Arrays.stream(userInfo.getRoles().split(","))
+    public UserInfoUserDetails(UserInfoEntity userInfoEntity) {
+
+        this.username = userInfoEntity.getUsername();
+        this.password = userInfoEntity.getPassword();
+        this.authorities = Arrays.stream(userInfoEntity.getRole().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+        this.active = userInfoEntity.isActive();
+        this.locked = userInfoEntity.isLocked();
+
     }
 
     @Override
@@ -45,7 +48,7 @@ public class UserInfoUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     @Override
@@ -55,7 +58,7 @@ public class UserInfoUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
@@ -65,6 +68,7 @@ public class UserInfoUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return active;
     }
+
 }

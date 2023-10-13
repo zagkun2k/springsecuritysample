@@ -1,13 +1,14 @@
 package com.example.springsecurity.repository;
 
-import com.example.springsecurity.entity.UserInfo;
+import com.example.springsecurity.model.entity.UserInfoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/**
- * Created by HachNV on 29/05/2023
- */
-public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
-    Optional<UserInfo> findByName(String username);
+@Repository
+public interface UserInfoRepository extends JpaRepository<UserInfoEntity, Long> {
+
+    Optional<UserInfoEntity> findByUsername(String name);
+
 }
