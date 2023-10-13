@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/admin/v1")
+@RequestMapping("/api/v1/admin")
 @Scope("prototype")
 public class AdminController {
 
     @Autowired
     private UserInfoService userInfoService;
 
-    @RequestMapping(value = "/admin/alluser", method = RequestMethod.GET)
+    @RequestMapping(value = "/alluser", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<UserInfoDTO>> getAllListUser() {
 
@@ -31,8 +31,7 @@ public class AdminController {
 
     }
 
-    @RequestMapping(value = "/admin/add", method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<String> addUser(@RequestBody UserInfoDTO dto) {
 
         userInfoService.addUser(UserInfoMapper.UserInfoDTOtoEntity(dto));
@@ -40,8 +39,7 @@ public class AdminController {
 
     }
 
-    @RequestMapping(value = "/admin/helloadmin", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @RequestMapping(value = "/helloadmin", method = RequestMethod.GET)
     public ResponseEntity<String> testingAdmin () {
 
         return ResponseEntity.ok("admin testing ok!!");

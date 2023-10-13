@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("api/admin/v1")
+@RequestMapping("/api/v1/user")
 @Scope("prototype")
 public class UserController {
 
     @Autowired
     private UserInfoService userInfoService;
 
-    @RequestMapping(value = "/user/{Id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/{Id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<UserInfoDTO> getUserById(@PathVariable(name = "Id") Long Id) {
 
@@ -26,7 +26,7 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/user/hellouser", method = RequestMethod.GET)
+    @RequestMapping(value = "/hellouser", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<String> testingUser () {
 
